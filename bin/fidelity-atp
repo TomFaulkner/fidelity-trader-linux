@@ -1,0 +1,30 @@
+#!/bin/bash
+# Launch Fidelity Active Trader Pro (Classic) under Proton/Wine.
+#
+# Installed as ~/.local/bin/fidelity-atp and as the app-menu entry
+# "Fidelity Active Trader Pro".
+#
+# NOTE: the login window takes well over a minute to paint its contents the
+# first time. That is normal — do not assume it failed.
+
+set -e
+
+# Self-contained on purpose: this gets installed to ~/.local/bin, and it must
+# not depend on a sibling file being copied alongside it.
+# (bin/atp-env.sh is the same environment, for interactive use.)
+export PROTON="${PROTON:-$HOME/.local/share/Steam/steamapps/common/Proton - Experimental}"
+export WINEPREFIX="${WINEPREFIX:-$HOME/.local/share/wineprefixes/atp}"
+export WINEDLLPATH="$PROTON/files/lib/vkd3d:$PROTON/files/lib/wine:$PROTON/files/lib/wine/icu"
+export LD_LIBRARY_PATH="$PROTON/files/lib/x86_64-linux-gnu:$PROTON/files/lib/i386-linux-gnu"
+export GST_PLUGIN_SYSTEM_PATH_1_0="$PROTON/files/lib/x86_64-linux-gnu/gstreamer-1.0"
+
+APP="$WINEPREFIX/drive_c/Program Files/Fidelity/ActiveTraderPro"
+
+if [ ! -f "$APP/ActiveTraderPro.exe" ]; then
+    echo "ATP not found at: $APP" >&2
+    echo "Run scripts/fetch-atp.sh and re-install, or see INSTALL.md" >&2
+    exit 1
+fi
+
+cd "$APP"
+exec "$PROTON/files/bin/wine" ActiveTraderPro.exe "$@"

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Fidelity Active Trader Pro
+Exec=/home/tom/.local/bin/fidelity-atp
+Terminal=false
+Type=Application
+Icon=fidelity-atp
+StartupNotify=true
+Categories=Finance;Office;

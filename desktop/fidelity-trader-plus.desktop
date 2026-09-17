@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Fidelity Trader+
+Exec=omarchy-launch-webapp https://digital.fidelity.com/ftgw/digital/traderplus
+Terminal=false
+Type=Application
+Icon=fidelity-traderplus
+StartupNotify=true
